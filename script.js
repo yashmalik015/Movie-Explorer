@@ -35,14 +35,24 @@ function searchMovies() {
 function displayMovies(movies) {
     container.innerHTML = "";
 
-    movies.forEach(movie => {
+    const filteredMovies = movies.filter(movie => movie.Poster !== "N/A");
+
+    const formattedMovies = filteredMovies.map(movie => {
+        return {
+            title: movie.Title,
+            year: movie.Year,
+            poster: movie.Poster
+        };
+    });
+
+    formattedMovies.forEach(movie => {
         const card = document.createElement("div");
         card.classList.add("movie-card");
 
         card.innerHTML = `
-            <img src="${movie.Poster !== "N/A" ? movie.Poster : ""}" />
-            <h3>${movie.Title}</h3>
-            <p>${movie.Year}</p>
+            <img src="${movie.poster}" />
+            <h3>${movie.title}</h3>
+            <p>${movie.year}</p>
         `;
 
         container.appendChild(card);
